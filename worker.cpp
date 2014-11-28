@@ -254,8 +254,7 @@ void Worker::Run()
     else
     {
         timer.Start();
-        SetTopBC();
-        SetBottomBC();
+        SetBC();
         Loop();
         timer.Stop();
         ArrayWriteToFile();
