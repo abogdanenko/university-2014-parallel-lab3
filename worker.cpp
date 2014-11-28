@@ -88,7 +88,9 @@ void Worker::StatsWriteToFile() const
     s
         << left
         << setw(w)
-        << "matrix size:"
+        << "array size:"
+        << n
+        << "x"
         << n
         << "x"
         << n
