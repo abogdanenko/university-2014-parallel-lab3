@@ -22,7 +22,7 @@ class Worker
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();
-    void CalculateNextMatrix();
+    void CalculateUNext();
     void Step();
     void Loop();
     public:

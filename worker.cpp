@@ -168,7 +168,7 @@ void Worker::CalculateOmega()
     }
 }
 
-void Worker::CalculateNextMatrix()
+void Worker::CalculateUNext()
 {
     if (args.omega == 0.0)
     {
@@ -211,7 +211,7 @@ void Worker::LogWrite() const
 void Worker::Step()
 {
     U.swap(U_next);
-    CalculateNextMatrix();
+    CalculateUNext();
     CalculateEpsilon();
     LogWrite();
     iteration_count++;
