@@ -19,7 +19,6 @@ Number string_to_number(const string& s)
 
 double border_condition(const double y, const double z);
 void zero_matrix(Matrix& A, const Index rows, const Index cols);
-void zero_matrix(Matrix& A, const Index size);
 double GetWallTime();
 
 #endif

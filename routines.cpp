@@ -23,10 +23,6 @@ void zero_matrix(Matrix& A, const Index rows, const Index cols)
     }
 }
 
-void zero_matrix(Matrix& A, const Index size)
-{
-    return zero_matrix(A, size, size);
-}
 
 double GetWallTime()
 {
