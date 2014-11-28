@@ -1,4 +1,4 @@
-EXECUTABLE=lab2-sequential
+EXECUTABLE=lab3-sequential
 CC=g++
 CXXFLAGS=-std=c++98 -Wall -Wextra -pedantic -Werror
 RELEASEDIR=release
