@@ -43,7 +43,7 @@ Args Parser::Parse()
     Args result;
     ostringstream oss;
     int c; // option character
-    while ((c = getopt(argc, argv, ":hvn:e:o:i:m:s:")) != -1)
+    while ((c = getopt(argc, argv, ":hvn:e:o:i:a:s:")) != -1)
     {
         switch(c)
         {
