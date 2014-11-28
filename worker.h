@@ -10,8 +10,8 @@ class Worker
     Index n;
     Args args;
     Timer timer;
-    Matrix U;
-    Matrix U_next;
+    Array3d U;
+    Array3d U_next;
     double epsilon;
     unsigned iteration_count;
     double omega;
