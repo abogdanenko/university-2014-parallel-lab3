@@ -18,7 +18,7 @@ class Worker
     double Coord(const Index i) const;
     void SetBC();
     void LogWrite() const;
-    void MatrixWriteToFile() const;
+    void ArrayWriteToFile() const;
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();

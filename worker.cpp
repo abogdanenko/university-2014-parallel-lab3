@@ -56,7 +56,7 @@ void Worker::SetBC()
     U_next.back() = side;
 }
 
-void Worker::MatrixWriteToFile() const
+void Worker::ArrayWriteToFile() const
 {
     ofstream fs;
     ostream& s = (args.array_filename == "-") ? cout :
@@ -67,10 +67,12 @@ void Worker::MatrixWriteToFile() const
     {
         for (Index j = 0; j < n; j++)
         {
-            s << U_next[i][j] << ' ';
+            for (Index k = 0; k < n; k++)
+            {
+                s << U_next[i][j][k] << ' ';
+            }
+            s << endl;
         }
-
-        s << endl;
     }
 }
 
@@ -254,7 +256,7 @@ void Worker::Run()
         SetBottomBC();
         Loop();
         timer.Stop();
-        MatrixWriteToFile();
+        ArrayWriteToFile();
         StatsWriteToFile();
     }
 }
