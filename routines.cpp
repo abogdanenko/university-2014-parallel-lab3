@@ -2,6 +2,16 @@
 
 #include "routines.h"
 
+double triangle(const double x)
+{
+    return 1.0 - abs(2.0 * x - 1.0);
+}
+
+double border_condition(const double y, const double z)
+{
+    return triangle(y) * triangle(z);
+}
+
 void zero_matrix(Matrix& A, const Index rows, const Index cols)
 {
     A.resize(rows);
