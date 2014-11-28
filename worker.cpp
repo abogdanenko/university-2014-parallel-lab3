@@ -145,11 +145,14 @@ void Worker::CalculateEpsilon()
     {
         for (Index j = 0; j < n; j++)
         {
-            const double diff = U[i][j] - U_next[i][j];
-            const double abs_diff = fabs(diff);
-            if (abs_diff > epsilon)
+            for (Index k = 0; k < n; k++)
             {
-                epsilon = abs_diff;
+                const double diff = U[i][j][k] - U_next[i][j][k];
+                const double abs_diff = fabs(diff);
+                if (abs_diff > epsilon)
+                {
+                    epsilon = abs_diff;
+                }
             }
         }
     }
