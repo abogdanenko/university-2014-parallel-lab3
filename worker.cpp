@@ -26,8 +26,8 @@ Worker::Worker(const Args& args):
 {
     if (!args.usage_flag)
     {
-        zero_matrix(T, n);
-        zero_matrix(T_next, n);
+        zero_matrix(U, n);
+        zero_matrix(U_next, n);
         if (args.omega != 0.0)
         {
             omega = args.omega;
@@ -43,24 +43,24 @@ double Worker::Coord(const Index i) const
 
 void Worker::SetTopBC()
 {
-    Vector& row = T.back();
+    Vector& row = U.back();
     for (Index j = 1; j < n - 1; j++)
     {
         const double x = Coord(j);
         row[j] = sin(M_PI * x) * exp(-1.0 * x);
     }
-    T_next.back() = row;
+    U_next.back() = row;
 }
 
 void Worker::SetBottomBC()
 {
-    Vector& row = T.front();
+    Vector& row = U.front();
     for (Index j = 1; j < n - 1; j++)
     {
         const double x = Coord(j);
         row[j] = sin(M_PI * x);
     }
-    T_next.front() = row;
+    U_next.front() = row;
 }
 
 void Worker::MatrixWriteToFile() const
@@ -74,7 +74,7 @@ void Worker::MatrixWriteToFile() const
     {
         for (Index j = 0; j < n; j++)
         {
-            s << T_next[i][j] << ' ';
+            s << U_next[i][j] << ' ';
         }
 
         s << endl;
@@ -148,7 +148,7 @@ void Worker::CalculateEpsilon()
     {
         for (Index j = 0; j < n; j++)
         {
-            const double diff = T[i][j] - T_next[i][j];
+            const double diff = U[i][j] - U_next[i][j];
             const double abs_diff = fabs(diff);
             if (abs_diff > epsilon)
             {
@@ -186,13 +186,13 @@ void Worker::CalculateNextMatrix()
     {
         for (Index j = 1; j < n - 1; j++)
         {
-            const double p = T[i][j];
+            const double p = U[i][j];
             const double q = 0.25 * (
-                T[i - 1][j] +
-                T[i + 1][j] +
-                T[i][j - 1] +
-                T[i][j + 1]);
-            T_next[i][j] = omega * q + (1.0 - omega) * p;
+                U[i - 1][j] +
+                U[i + 1][j] +
+                U[i][j - 1] +
+                U[i][j + 1]);
+            U_next[i][j] = omega * q + (1.0 - omega) * p;
         }
     }
 }
@@ -217,7 +217,7 @@ void Worker::LogWrite() const
 
 void Worker::Step()
 {
-    T.swap(T_next);
+    U.swap(U_next);
     CalculateNextMatrix();
     CalculateEpsilon();
     LogWrite();
