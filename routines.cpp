@@ -1,10 +1,11 @@
 #include <sys/time.h>
+#include <cmath>
 
 #include "routines.h"
 
 double triangle(const double x)
 {
-    return 1.0 - abs(2.0 * x - 1.0);
+    return 1.0 - fabs(2.0 * x - 1.0);
 }
 
 double border_condition(const double y, const double z)
