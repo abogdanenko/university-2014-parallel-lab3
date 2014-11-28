@@ -1,7 +1,7 @@
 #include "args.h"
 
 Args::Args():
-    n(512),
+    n(8),
     epsilon_max(0.01),
     omega(1.0),
     iteration_count_max(0),
