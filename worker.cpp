@@ -26,8 +26,8 @@ Worker::Worker(const Args& args):
 {
     if (!args.usage_flag)
     {
-        zero_matrix(U, n);
-        zero_matrix(U_next, n);
+        zero_array3d(U, n, n, n);
+        zero_array3d(U_next, n, n, n);
         if (args.omega != 0.0)
         {
             omega = args.omega;
