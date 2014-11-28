@@ -186,13 +186,18 @@ void Worker::CalculateUNext()
     {
         for (Index j = 1; j < n - 1; j++)
         {
-            const double p = U[i][j];
-            const double q = 0.25 * (
-                U[i - 1][j] +
-                U[i + 1][j] +
-                U[i][j - 1] +
-                U[i][j + 1]);
-            U_next[i][j] = omega * q + (1.0 - omega) * p;
+            for (Index k = 1; k < n - 1; k++)
+            {
+                const double p = U[i][j][k];
+                const double q = (
+                    U[i - 1][j][k] +
+                    U[i + 1][j][k] +
+                    U[i][j - 1][k] +
+                    U[i][j + 1][k] +
+                    U[i][j][k - 1] +
+                    U[i][j][k + 1]) / 6.0;
+                U_next[i][j][k] = omega * q + (1.0 - omega) * p;
+            }
         }
     }
 }
