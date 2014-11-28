@@ -33,7 +33,7 @@ void Parser::PrintUsage()
             "[-e epsilon_max] "
             "[-i iteration_count_max] "
             "[-o omega] "
-            "[-m matrix_output_file] "
+            "[-a array_output_file] "
             "[-s stats_file]"
         << endl;
 }
@@ -65,7 +65,7 @@ Args Parser::Parse()
             case 'i':
                 result.iteration_count_max = string_to_number<unsigned>(optarg);
                 break;
-            case 'm':
+            case 'a':
                 result.array_filename = optarg;
                 break;
             case 's':
