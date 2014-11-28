@@ -15,7 +15,7 @@ class Args
     bool usage_flag;
     bool verbose_flag;
     // "-" means 'write to stdout' (default)
-    string matrix_filename;
+    string array_filename;
     string stats_filename;
 
     Args();

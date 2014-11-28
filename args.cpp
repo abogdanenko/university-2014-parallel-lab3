@@ -7,7 +7,7 @@ Args::Args():
     iteration_count_max(0),
     usage_flag(false),
     verbose_flag(false),
-    matrix_filename("-"),
+    array_filename("-"),
     stats_filename("-")
 {
 

@@ -66,7 +66,7 @@ Args Parser::Parse()
                 result.iteration_count_max = string_to_number<unsigned>(optarg);
                 break;
             case 'm':
-                result.matrix_filename = optarg;
+                result.array_filename = optarg;
                 break;
             case 's':
                 result.stats_filename = optarg;

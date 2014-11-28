@@ -59,8 +59,8 @@ void Worker::SetBC()
 void Worker::MatrixWriteToFile() const
 {
     ofstream fs;
-    ostream& s = (args.matrix_filename == "-") ? cout :
-        (fs.open(args.matrix_filename.c_str()), fs);
+    ostream& s = (args.array_filename == "-") ? cout :
+        (fs.open(args.array_filename.c_str()), fs);
 
     s << fixed << setprecision(4);
     for (Index i = 0; i < n; i++)
