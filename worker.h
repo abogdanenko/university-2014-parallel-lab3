@@ -16,8 +16,7 @@ class Worker
     unsigned iteration_count;
     double omega;
     double Coord(const Index i) const;
-    void SetTopBC();
-    void SetBottomBC();
+    void SetBC();
     void LogWrite() const;
     void MatrixWriteToFile() const;
     void StatsWriteToFile() const;

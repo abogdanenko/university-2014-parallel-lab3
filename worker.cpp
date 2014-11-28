@@ -41,26 +41,19 @@ double Worker::Coord(const Index i) const
     return coef * i;
 }
 
-void Worker::SetTopBC()
+void Worker::SetBC()
 {
-    Vector& row = U.back();
+    Matrix& side = U.back();
     for (Index j = 1; j < n - 1; j++)
     {
-        const double x = Coord(j);
-        row[j] = sin(M_PI * x) * exp(-1.0 * x);
+        for (Index k = 1; k < n - 1; k++)
+        {
+            const double y = Coord(j);
+            const double z = Coord(k);
+            side[j][k] = border_condition(y, z);
+        }
     }
-    U_next.back() = row;
-}
-
-void Worker::SetBottomBC()
-{
-    Vector& row = U.front();
-    for (Index j = 1; j < n - 1; j++)
-    {
-        const double x = Coord(j);
-        row[j] = sin(M_PI * x);
-    }
-    U_next.front() = row;
+    U_next.back() = side;
 }
 
 void Worker::MatrixWriteToFile() const
