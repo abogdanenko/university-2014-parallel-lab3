@@ -256,6 +256,7 @@ void Worker::CalculateEpsilon()
             }
         }
     }
+    MPI_Allreduce(MPI_IN_PLACE, &epsilon, 1, MPI_DOUBLE, MPI_MAX, comm);
 }
 
 void Worker::CalculateOmega()
