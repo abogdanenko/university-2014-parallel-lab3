@@ -304,7 +304,7 @@ void Worker::CalculateUNext()
 
 void Worker::LogWrite() const
 {
-    if (args.verbose_flag)
+    if (args.verbose_flag && is_master)
     {
         cout << "iteration:"
             << setw(8)
