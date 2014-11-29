@@ -34,3 +34,10 @@ void zero_array3d(Array3d& A, const Index n1, const Index n2, const Index n3)
     }
 }
 
+void vector_write_to_stream(ostream& s, const Vector& v)
+{
+    for (Index i = 0; i < v.size(); i++)
+    {
+        s << v[i] << ' ';
+    }
+}
