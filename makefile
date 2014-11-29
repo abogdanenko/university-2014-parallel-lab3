@@ -1,6 +1,6 @@
-EXECUTABLE=lab3-sequential
-CC=g++
-CXXFLAGS=-std=c++98 -Wall -Wextra -pedantic -Werror
+EXECUTABLE=lab3
+CC=mpiCC
+CXXFLAGS=-std=c++98 -Wall -Wextra -pedantic -Wno-long-long -Werror
 RELEASEDIR=release
 HFILES=$(wildcard *.h)
 CPPFILES=$(wildcard *.cpp)

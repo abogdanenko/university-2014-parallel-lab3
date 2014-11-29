@@ -34,9 +34,3 @@ void zero_array3d(Array3d& A, const Index n1, const Index n2, const Index n3)
     }
 }
 
-double GetWallTime()
-{
-    struct timeval time;
-    gettimeofday(&time, NULL);
-    return (double) time.tv_sec + (double) time.tv_usec * 1.0e-6;
-}

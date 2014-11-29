@@ -20,6 +20,5 @@ Number string_to_number(const string& s)
 double border_condition(const double y, const double z);
 void zero_matrix(Matrix& A, const Index rows, const Index cols);
 void zero_array3d(Array3d& A, const Index n1, const Index n2, const Index n3);
-double GetWallTime();
 
 #endif

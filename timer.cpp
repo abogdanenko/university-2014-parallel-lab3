@@ -1,14 +1,15 @@
+#include <mpi.h>
+
 #include "timer.h"
-#include "routines.h"
 
 void Timer::Start()
 {
-    begin = GetWallTime();
+    begin = MPI_Wtime();
 }
 
 void Timer::Stop()
 {
-    end = GetWallTime();
+    end = MPI_Wtime();
 }
 
 double Timer::GetDelta() const
