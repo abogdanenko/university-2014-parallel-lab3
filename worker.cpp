@@ -303,6 +303,39 @@ void Worker::CalculateUNext()
     }
 }
 
+void Worker::CalculateMatrix(
+    Matrix& next,
+    const Matrix& current,
+    const Neighborhood& O)
+{
+    for (Index j = 0; j < ny; j++)
+    {
+        if (j == 0 && !O.left_exists || j == ny - 1 && !O.right_exists)
+        {
+            continue;
+        }
+
+        for (Index k = 0; k < nz; k++)
+        {
+            if (k == 0 && !O.bottom_exists || k == nz - 1 && !O.top_exists)
+            {
+                continue;
+            }
+
+            const double left   = j == 0      ? O.left[k]   : current[j - 1][k];
+            const double right  = j == ny - 1 ? O.right[k]  : current[j + 1][k];
+            const double bottom = k == 0      ? O.bottom[j] : current[j][k - 1];
+            const double top    = k == nz - 1 ? O.top[j]    : current[j][k + 1];
+            const double back   = O.back[j][k];
+            const double front  = O.front[j][k];
+            const double sum    = front + back + left + right + bottom + top;
+            const double p      = current[j][k];
+            const double q      = sum / 6.0;
+            next[j][k]          = omega * q + (1.0 - omega) * p;
+        }
+    }
+}
+
 void Worker::LogWrite() const
 {
     if (args.verbose_flag && is_master)
