@@ -64,20 +64,83 @@ void Worker::SetBC()
 
 void Worker::ArrayWriteToFile() const
 {
-    ofstream fs;
-    ostream& s = (args.array_filename == "-") ? cout :
-        (fs.open(args.array_filename.c_str()), fs);
-
-    s << fixed << setprecision(4);
-    for (Index i = 0; i < n; i++)
+    if (master)
     {
-        for (Index j = 0; j < n; j++)
+        Vector buf(nz);
+
+        ofstream fs;
+        ostream& s = (args.array_filename == "-") ? cout :
+            (fs.open(args.array_filename.c_str()), fs);
+
+        s << fixed << setprecision(4);
+
+        for (int pi = 0; pi < npx; pi++)
         {
-            for (Index k = 0; k < n; k++)
+            for (Index i = 0; i < nx; i++)
             {
-                s << U_next[i][j][k] << ' ';
+                for (int pj = 0; pj < npy; pj++)
+                {
+                    for (Index j = 0; j < ny; j++)
+                    {
+                        for (int pk = 0; pk < npz; pk++)
+                        {
+                            MPI_Barrier(comm);
+                            if (pi == 0 && pj == 0 && pk == 0)
+                            {
+                                buf = U_next[i][j];
+                            }
+                            else
+                            {
+                                int worker;
+                                const vector<int> coords = {pi, pj, pk};
+                                MPI_Cart_rank(comm, &coords[0], &worker);
+                                MPI_recv(
+                                    &buf[0],
+                                    buf.size(),
+                                    MPI_DOUBLE,
+                                    worker,
+                                    MPI_ANY_TAG,
+                                    comm,
+                                    MPI_STATUS_IGNORE);
+                            }
+                            vector_write_to_stream(s, buf);
+                            MPI_Barrier(comm);
+                        }
+                        s << endl;
+                    }
+                }
             }
-            s << endl;
+        }
+    }
+    else
+    {
+        for (int pi = 0; pi < npx; pi++)
+        {
+            for (Index i = 0; i < nx; i++)
+            {
+                for (int pj = 0; pj < npy; pj++)
+                {
+                    for (Index j = 0; j < ny; j++)
+                    {
+                        for (int pk = 0; pk < npz; pk++)
+                        {
+                            MPI_Barrier(comm);
+                            if (pi == px && pj == py && pk == pz)
+                            {
+                                const Vector& buf = U_next[i][j];
+                                MPI_Send(
+                                    &buf[0],
+                                    buf.size(),
+                                    MPI_DOUBLE,
+                                    master_rank,
+                                    0,
+                                    comm);
+                            }
+                            MPI_Barrier(comm);
+                        }
+                    }
+                }
+            }
         }
     }
 }
