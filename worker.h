@@ -7,7 +7,21 @@
 
 class Worker
 {
+    // mesh size
     Index n;
+    Index nx;
+    Index ny;
+    Index nz;
+    // coords of this processor
+    int rank;
+    int px;
+    int py;
+    int pz;
+    // total number of processors and number of processors in each dimension
+    int world_size;
+    int npx;
+    int npy;
+    int npz;
     Args args;
     Timer timer;
     Array3d U;

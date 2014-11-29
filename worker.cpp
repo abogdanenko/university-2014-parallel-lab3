@@ -24,6 +24,12 @@ Worker::Worker(const Args& args):
     args(args),
     omega(1.0)
 {
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+    nx = n / px;
+    ny = n / py;
+    nz = n / pz;
+
     if (!args.usage_flag)
     {
         zero_array3d(U, nx, ny, nz);
