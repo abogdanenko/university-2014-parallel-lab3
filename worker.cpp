@@ -283,23 +283,39 @@ void Worker::CalculateUNext()
         CalculateOmega();
     }
 
-    for (Index i = 1; i < n - 1; i++)
+    for (Index i = 0; i < nx; i++)
     {
-        for (Index j = 1; j < n - 1; j++)
+        if (i == 0 && !O3d.front_exists || i == nx - 1 && !O3d.back_exists)
         {
-            for (Index k = 1; k < n - 1; k++)
-            {
-                const double p = U[i][j][k];
-                const double q = (
-                    U[i - 1][j][k] +
-                    U[i + 1][j][k] +
-                    U[i][j - 1][k] +
-                    U[i][j + 1][k] +
-                    U[i][j][k - 1] +
-                    U[i][j][k + 1]) / 6.0;
-                U_next[i][j][k] = omega * q + (1.0 - omega) * p;
-            }
+            continue;
         }
+
+        const Matrix& front = i == 0 ? O3d.front : U_next[i - 1];
+        const Matrix& back i == nx - 1 ? O3d.back : U_next[i + 1];
+
+        Neighborhood O(front, back);
+
+        if (O3d.left_exists)
+        {
+            O.SetLeft(O3d.left[i]);
+        }
+
+        if (O3d.right_exists)
+        {
+            O.SetRight(O3d.right[i]);
+        }
+
+        if (O3d.bottom_exists)
+        {
+            O.SetBottom(O3d.bottom[i]);
+        }
+
+        if (O3d.top_exists)
+        {
+            O.SetTop(O3d.top[i]);
+        }
+
+        CalculateMatrix(U_next[i], U[i], O);
     }
 }
 
