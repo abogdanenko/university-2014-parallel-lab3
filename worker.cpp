@@ -257,13 +257,21 @@ void Worker::Run()
 {
     if (args.usage_flag)
     {
-        Parser::PrintUsage();
+        if (rank == 0)
+        {
+            Parser::PrintUsage();
+        }
     }
     else
     {
+        MPI_Barrier(MPI_COMM_WORLD);
         timer.Start();
-        SetBC();
+        if (pi == px - 1)
+        {
+            SetBC();
+        }
         Loop();
+        MPI_Barrier(MPI_COMM_WORLD);
         timer.Stop();
         ArrayWriteToFile();
         StatsWriteToFile();
