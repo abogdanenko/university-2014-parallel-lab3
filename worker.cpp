@@ -84,6 +84,11 @@ void Worker::ArrayWriteToFile() const
 
 void Worker::StatsWriteToFile() const
 {
+    if (rank)
+    {
+        return;
+    }
+
     ofstream fs;
     ostream& s = (args.stats_filename == "-") ? cout :
         (fs.open(args.stats_filename.c_str()), fs);
@@ -100,6 +105,32 @@ void Worker::StatsWriteToFile() const
         << n
         << "x"
         << n
+        << endl;
+    s
+        << left
+        << setw(w)
+        << "array slice:"
+        << nx
+        << "x"
+        << ny
+        << "x"
+        << nz
+        << endl;
+    s
+        << left
+        << setw(w)
+        << "processes:"
+        << world_size
+        << endl;
+    s
+        << left
+        << setw(w)
+        << "topology:"
+        << npx
+        << "x"
+        << npy
+        << "x"
+        << npz
         << endl;
     s
         << left
