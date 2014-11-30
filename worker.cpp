@@ -285,34 +285,34 @@ void Worker::CalculateUNext()
 
     for (Index i = 0; i < nx; i++)
     {
-        if (i == 0 && !O3d.x0_exists || i == nx - 1 && !O3d.x1_exists)
+        if (i == 0 && !H.x0_exists || i == nx - 1 && !H.x1_exists)
         {
             continue;
         }
 
-        const Matrix& x0 = i == 0 ? O3d.x0 : U_next[i - 1];
-        const Matrix& x1 = i == nx - 1 ? O3d.x1 : U_next[i + 1];
+        const Matrix& x0 = i == 0 ? H.x0 : U_next[i - 1];
+        const Matrix& x1 = i == nx - 1 ? H.x1 : U_next[i + 1];
 
         Neighborhood O(x0, x1);
 
-        if (O3d.y0_exists)
+        if (H.y0_exists)
         {
-            O.SetY0(O3d.y0[i]);
+            O.SetY0(H.y0[i]);
         }
 
-        if (O3d.y1_exists)
+        if (H.y1_exists)
         {
-            O.SetY1(O3d.y1[i]);
+            O.SetY1(H.y1[i]);
         }
 
-        if (O3d.z0_exists)
+        if (H.z0_exists)
         {
-            O.SetZ0(O3d.z0[i]);
+            O.SetZ0(H.z0[i]);
         }
 
-        if (O3d.z1_exists)
+        if (H.z1_exists)
         {
-            O.SetZ1(O3d.z1[i]);
+            O.SetZ1(H.z1[i]);
         }
 
         CalculateSection(U_next[i], U[i], O);
