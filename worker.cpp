@@ -73,12 +73,23 @@ double Worker::Coord(const Index i) const
 void Worker::SetBC()
 {
     Matrix& side = U.back();
-    for (Index j = 1; j < n - 1; j++)
+    for (Index j = 0; j < ny; j++)
     {
-        for (Index k = 1; k < n - 1; k++)
+        const Index J = py * ny + j;
+        if (J == 0 || J == n - 1)
         {
-            const double y = Coord(j);
-            const double z = Coord(k);
+            continue;
+        }
+        const double y = Coord(J);
+
+        for (Index k = 0; k < nz; k++)
+        {
+            const Index K = pz * nz + k;
+            if (K == 0 || K == n - 1)
+            {
+                continue;
+            }
+            const double z = Coord(K);
             side[j][k] = border_condition(y, z);
         }
     }
