@@ -277,6 +277,14 @@ void Worker::CalculateOmega()
     }
 }
 
+int Worker::Rank(const int pi, const int pj, const int pk) const
+{
+    int rank;
+    vector<int> coords = {pi, pj, pk};
+    MPI_Cart_rank(comm, &coords[0], &rank);
+    return rank;
+}
+
 void Worker::SendReceiveMatrix(Matrix& A, const int dest)
 {
     for (Index i = 0; i < A.size(); i++)

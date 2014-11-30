@@ -41,6 +41,7 @@ class Worker
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();
+    int Rank(const int pi, const int pj, const int pk) const;
     void SendReceiveMatrix(Matrix& A, const int dest);
     void SendReceiveX0();
     void SendReceiveX1();
