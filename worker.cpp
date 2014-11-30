@@ -277,6 +277,24 @@ void Worker::CalculateOmega()
     }
 }
 
+void Worker::SendReceiveMatrix(Matrix& A, const int dest)
+{
+    for (Index i = 0; i < A.size(); i++)
+    {
+        Vector& buf = A[i];
+        MPI_Sendrecv_replace(
+            &buf[0],
+            buf.size(),
+            MPI_DOUBLE,
+            dest,
+            0,
+            dest,
+            MPI_ANY_TAG,
+            comm,
+            MPI_STATUS_IGNORE);
+    }
+}
+
 void Worker::SendReceiveX0()
 {
     if (px == 0)

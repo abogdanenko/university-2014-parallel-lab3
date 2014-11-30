@@ -41,6 +41,7 @@ class Worker
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();
+    void SendReceiveMatrix(Matrix& A, const int dest);
     void SendReceiveX0();
     void SendReceiveX1();
     void SendReceiveY0();
