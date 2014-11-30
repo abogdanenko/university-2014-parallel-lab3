@@ -34,6 +34,7 @@ Worker::Worker(const Args& args):
     {
         zero_array3d(U, nx, ny, nz);
         zero_array3d(U_next, nx, ny, nz);
+        H.Init(nx, ny, nz);
         if (args.omega != 0.0)
         {
             omega = args.omega;

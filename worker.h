@@ -26,9 +26,11 @@ class Worker
     Timer timer;
     Array3d U;
     Array3d U_next;
+    Halo H;
     double epsilon;
     unsigned iteration_count;
     double omega;
+
     double Coord(const Index i) const;
     void SetBC();
     void LogWrite() const;
