@@ -111,7 +111,7 @@ void Worker::ArrayWriteToFile() const
                             else
                             {
                                 const int worker = Rank(pi, pj, pk);
-                                MPI_recv(
+                                MPI_Recv(
                                     &buf[0],
                                     buf.size(),
                                     MPI_DOUBLE,
