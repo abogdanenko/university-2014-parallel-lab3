@@ -41,3 +41,19 @@ void vector_write_to_stream(ostream& s, const Vector& v)
         s << v[i] << ' ';
     }
 }
+
+void factor3(int n, int& x, int& y, int& z)
+{
+    x = 1;
+    y = 1;
+    z = 1;
+
+    const vector<int*> p = {&x, &y, &z};
+    int i = 0;
+    while (n > 1)
+    {
+        n /= 2;
+        *p[i] *= 2;
+        i = (i + 1) % 3;
+    }
+}
