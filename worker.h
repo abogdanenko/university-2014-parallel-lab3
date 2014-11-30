@@ -39,7 +39,7 @@ class Worker
     void CalculateSection(
         Matrix& next,
         const Matrix& current,
-        const Neighborhood& O);
+        const Neighborhood& h);
     void CalculateUNext();
     void Step();
     void Loop();

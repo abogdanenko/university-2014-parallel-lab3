@@ -322,28 +322,28 @@ void Worker::CalculateUNext()
 void Worker::CalculateSection(
     Matrix& next,
     const Matrix& current,
-    const Neighborhood& O)
+    const Neighborhood& h)
 {
     for (Index j = 0; j < ny; j++)
     {
-        if (j == 0 && !O.y0_exists || j == ny - 1 && !O.y1_exists)
+        if (j == 0 && !h.y0_exists || j == ny - 1 && !h.y1_exists)
         {
             continue;
         }
 
         for (Index k = 0; k < nz; k++)
         {
-            if (k == 0 && !O.z0_exists || k == nz - 1 && !O.z1_exists)
+            if (k == 0 && !h.z0_exists || k == nz - 1 && !h.z1_exists)
             {
                 continue;
             }
 
-            const double x0  = O.x0[j][k];
-            const double x1  = O.x1[j][k];
-            const double y0  = j == 0      ? O.y0[k] : current[j - 1][k];
-            const double y1  = j == ny - 1 ? O.y1[k] : current[j + 1][k];
-            const double z0  = k == 0      ? O.z0[j] : current[j][k - 1];
-            const double z1  = k == nz - 1 ? O.z1[j] : current[j][k + 1];
+            const double x0  = h.x0[j][k];
+            const double x1  = h.x1[j][k];
+            const double y0  = j == 0      ? h.y0[k] : current[j - 1][k];
+            const double y1  = j == ny - 1 ? h.y1[k] : current[j + 1][k];
+            const double z0  = k == 0      ? h.z0[j] : current[j][k - 1];
+            const double z1  = k == nz - 1 ? h.z1[j] : current[j][k + 1];
             const double sum = x0 + x1 + y0 + y1 + z0 + z1;
             const double p   = current[j][k];
             const double q   = sum / 6.0;
