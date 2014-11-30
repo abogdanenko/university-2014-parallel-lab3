@@ -98,6 +98,11 @@ void Worker::SetBC()
 
 void Worker::ArrayWriteToFile() const
 {
+    if (args.array_filename.empty())
+    {
+        return;
+    }
+
     if (is_master)
     {
         Vector buf(nz);
