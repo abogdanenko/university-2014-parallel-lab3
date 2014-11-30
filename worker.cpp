@@ -277,6 +277,13 @@ void Worker::CalculateOmega()
     }
 }
 
+void Worker::SendReceiveHalo()
+{
+    RunInOrder(&Worker::SendReceiveX0, &Worker::SendReceiveX1, px % 2);
+    RunInOrder(&Worker::SendReceiveY0, &Worker::SendReceiveY1, py % 2);
+    RunInOrder(&Worker::SendReceiveZ0, &Worker::SendReceiveZ1, pz % 2);
+}
+
 void Worker::CalculateUNext()
 {
     if (args.omega == 0.0)
@@ -356,6 +363,7 @@ void Worker::LogWrite() const
 void Worker::Step()
 {
     U.swap(U_next);
+    SendReceiveHalo();
     CalculateUNext();
     CalculateEpsilon();
     LogWrite();
