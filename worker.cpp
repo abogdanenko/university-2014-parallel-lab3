@@ -58,6 +58,11 @@ void Worker::SetBC()
 
 void Worker::ArrayWriteToFile() const
 {
+    if (args.array_filename.empty())
+    {
+        return;
+    }
+
     ofstream fs;
     ostream& s = (args.array_filename == "-") ? cout :
         (fs.open(args.array_filename.c_str()), fs);
