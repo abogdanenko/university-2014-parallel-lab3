@@ -1,9 +1,13 @@
 #ifndef WORKER_H
 #define WORKER_H
 
+#include <mpi.h>
+
 #include "args.h"
 #include "typedefs.h"
 #include "timer.h"
+#include "halo.h"
+#include "halosection.h"
 
 class Worker;
 typedef void (Worker::* WorkerMemberFunction)();

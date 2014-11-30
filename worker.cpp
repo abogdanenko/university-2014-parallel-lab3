@@ -1,11 +1,11 @@
-#include "worker.h"
-#include "parser.h"
-#include "routines.h"
-
 #include <fstream>
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+
+#include "worker.h"
+#include "parser.h"
+#include "routines.h"
 
 using std::ofstream;
 using std::ostream;
