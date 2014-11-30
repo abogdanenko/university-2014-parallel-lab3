@@ -26,7 +26,7 @@ Parser::Parser(const int argc, char** const argv):
 
 void Parser::PrintUsage()
 {
-    cout << "Usage: lab3-sequential "
+    cout << "Usage: lab3 "
             "[-h] "
             "[-v] "
             "[-n size] "
