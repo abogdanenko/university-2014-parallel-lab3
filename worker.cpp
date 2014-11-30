@@ -445,7 +445,12 @@ void Worker::CalculateUNext()
 
     for (Index i = 0; i < nx; i++)
     {
-        if (i == 0 && !H.x0_exists || i == nx - 1 && !H.x1_exists)
+        if (i == 0 && !H.x0_exists)
+        {
+            continue;
+        }
+
+        if (i == nx - 1 && !H.x1_exists)
         {
             continue;
         }
@@ -468,14 +473,24 @@ void Worker::CalculateSection(
 {
     for (Index j = 0; j < ny; j++)
     {
-        if (j == 0 && !h.y0_exists || j == ny - 1 && !h.y1_exists)
+        if (j == 0 && !h.y0_exists)
+        {
+            continue;
+        }
+
+        if (j == ny - 1 && !h.y1_exists)
         {
             continue;
         }
 
         for (Index k = 0; k < nz; k++)
         {
-            if (k == 0 && !h.z0_exists || k == nz - 1 && !h.z1_exists)
+            if (k == 0 && !h.z0_exists)
+            {
+                continue;
+            }
+
+            if (k == nz - 1 && !h.z1_exists)
             {
                 continue;
             }
