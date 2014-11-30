@@ -65,7 +65,7 @@ void Worker::SetBC()
 
 void Worker::ArrayWriteToFile() const
 {
-    if (master)
+    if (is_master)
     {
         Vector buf(nz);
 
@@ -535,7 +535,7 @@ void Worker::Run()
 {
     if (args.usage_flag)
     {
-        if (rank == 0)
+        if (is_master)
         {
             Parser::PrintUsage();
         }
