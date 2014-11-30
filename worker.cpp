@@ -299,7 +299,10 @@ void Worker::CalculateOmega()
 int Worker::Rank(const int pi, const int pj, const int pk) const
 {
     int rank;
-    vector<int> coords = {pi, pj, pk};
+    vector<int> coords(3);
+    coords[0] = pi;
+    coords[1] = pj;
+    coords[2] = pk;
     MPI_Cart_rank(comm, &coords[0], &rank);
     return rank;
 }
