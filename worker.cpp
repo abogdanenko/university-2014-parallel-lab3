@@ -92,9 +92,7 @@ void Worker::ArrayWriteToFile() const
                             }
                             else
                             {
-                                int worker;
-                                const vector<int> coords = {pi, pj, pk};
-                                MPI_Cart_rank(comm, &coords[0], &worker);
+                                const int worker = Rank(pi, pj, pk);
                                 MPI_recv(
                                     &buf[0],
                                     buf.size(),
