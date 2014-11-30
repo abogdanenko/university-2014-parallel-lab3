@@ -5,11 +5,19 @@
 #include "parser.h"
 #include "worker.h"
 
+#ifdef WAITFORGDB
+#include "debug.h"
+#endif
+
 using std::cerr;
 using std::endl;
 
 int main(int argc, char** argv)
 {
+    #ifdef WAITFORGDB
+    WaitForGdb();
+    #endif
+
     int exit_code = EXIT_SUCCESS;
     int rank;
     MPI_Init(&argc, &argv);
