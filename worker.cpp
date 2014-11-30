@@ -285,34 +285,34 @@ void Worker::CalculateUNext()
 
     for (Index i = 0; i < nx; i++)
     {
-        if (i == 0 && !O3d.front_exists || i == nx - 1 && !O3d.back_exists)
+        if (i == 0 && !O3d.x0_exists || i == nx - 1 && !O3d.x1_exists)
         {
             continue;
         }
 
-        const Matrix& front = i == 0 ? O3d.front : U_next[i - 1];
-        const Matrix& back i == nx - 1 ? O3d.back : U_next[i + 1];
+        const Matrix& x0 = i == 0 ? O3d.x0 : U_next[i - 1];
+        const Matrix& x1 = i == nx - 1 ? O3d.x1 : U_next[i + 1];
 
-        Neighborhood O(front, back);
+        Neighborhood O(x0, x1);
 
-        if (O3d.left_exists)
+        if (O3d.y0_exists)
         {
-            O.SetLeft(O3d.left[i]);
+            O.SetY0(O3d.y0[i]);
         }
 
-        if (O3d.right_exists)
+        if (O3d.y1_exists)
         {
-            O.SetRight(O3d.right[i]);
+            O.SetY1(O3d.y1[i]);
         }
 
-        if (O3d.bottom_exists)
+        if (O3d.z0_exists)
         {
-            O.SetBottom(O3d.bottom[i]);
+            O.SetZ0(O3d.z0[i]);
         }
 
-        if (O3d.top_exists)
+        if (O3d.z1_exists)
         {
-            O.SetTop(O3d.top[i]);
+            O.SetZ1(O3d.z1[i]);
         }
 
         CalculateMatrix(U_next[i], U[i], O);
@@ -326,28 +326,28 @@ void Worker::CalculateMatrix(
 {
     for (Index j = 0; j < ny; j++)
     {
-        if (j == 0 && !O.left_exists || j == ny - 1 && !O.right_exists)
+        if (j == 0 && !O.y0_exists || j == ny - 1 && !O.y1_exists)
         {
             continue;
         }
 
         for (Index k = 0; k < nz; k++)
         {
-            if (k == 0 && !O.bottom_exists || k == nz - 1 && !O.top_exists)
+            if (k == 0 && !O.z0_exists || k == nz - 1 && !O.z1_exists)
             {
                 continue;
             }
 
-            const double left   = j == 0      ? O.left[k]   : current[j - 1][k];
-            const double right  = j == ny - 1 ? O.right[k]  : current[j + 1][k];
-            const double bottom = k == 0      ? O.bottom[j] : current[j][k - 1];
-            const double top    = k == nz - 1 ? O.top[j]    : current[j][k + 1];
-            const double back   = O.back[j][k];
-            const double front  = O.front[j][k];
-            const double sum    = front + back + left + right + bottom + top;
-            const double p      = current[j][k];
-            const double q      = sum / 6.0;
-            next[j][k]          = omega * q + (1.0 - omega) * p;
+            const double x0  = O.x0[j][k];
+            const double x1  = O.x1[j][k];
+            const double y0  = j == 0      ? O.y0[k] : current[j - 1][k];
+            const double y1  = j == ny - 1 ? O.y1[k] : current[j + 1][k];
+            const double z0  = k == 0      ? O.z0[j] : current[j][k - 1];
+            const double z1  = k == nz - 1 ? O.z1[j] : current[j][k + 1];
+            const double sum = x0 + x1 + y0 + y1 + z0 + z1;
+            const double p   = current[j][k];
+            const double q   = sum / 6.0;
+            next[j][k]       = omega * q + (1.0 - omega) * p;
         }
     }
 }
