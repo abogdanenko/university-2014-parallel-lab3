@@ -48,12 +48,17 @@ void factor3(int n, int& x, int& y, int& z)
     y = 1;
     z = 1;
 
-    const vector<int*> p = {&x, &y, &z};
+    vector<int*> p(3);
+    p[0] = &x;
+    p[1] = &y;
+    p[2] = &z;
+
     int i = 0;
     while (n > 1)
     {
+        int& elem = *(p[i]);
         n /= 2;
-        *p[i] *= 2;
+        elem *= 2;
         i = (i + 1) % 3;
     }
 }
