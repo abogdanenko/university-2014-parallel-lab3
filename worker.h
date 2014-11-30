@@ -41,6 +41,12 @@ class Worker
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();
+    void SendReceiveX0();
+    void SendReceiveX1();
+    void SendReceiveY0();
+    void SendReceiveY1();
+    void SendReceiveZ0();
+    void SendReceiveZ1();
     void SendReceiveHalo();
     void RunInOrder(
         WorkerMemberFunction f1,

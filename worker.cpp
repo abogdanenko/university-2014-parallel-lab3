@@ -277,6 +277,100 @@ void Worker::CalculateOmega()
     }
 }
 
+void Worker::SendReceiveX0()
+{
+    if (px == 0)
+    {
+        return;
+    }
+
+    H.x0 = U.front();
+    const int dest = Rank(px - 1, py, pz);
+    SendReceiveMatrix(H.x0, dest);
+}
+
+void Worker::SendReceiveX1()
+{
+    if (px == npx - 1)
+    {
+        return;
+    }
+
+    H.x1 = U.back();
+    const int dest = Rank(px - 1, py, pz);
+    SendReceiveMatrix(H.x1, dest);
+}
+
+void Worker::SendReceiveY0()
+{
+    if (py == 0)
+    {
+        return;
+    }
+
+    for (Index i = 0; i < nx; i++)
+    {
+        H.y0[i] = U[i][0];
+    }
+
+    const int dest = Rank(px, py - 1, pz);
+    SendReceiveMatrix(H.y0, dest);
+}
+
+void Worker::SendReceiveY1()
+{
+    if (py == npy - 1)
+    {
+        return;
+    }
+
+    for (Index i = 0; i < nx; i++)
+    {
+        H.y1[i] = U[i][ny - 1];
+    }
+
+    const int dest = Rank(px, py + 1, pz);
+    SendReceiveMatrix(H.y1, dest);
+}
+
+void Worker::SendReceiveZ0()
+{
+    if (pz == 0)
+    {
+        return;
+    }
+
+    for (Index i = 0; i < nx; i++)
+    {
+        for (Index j = 0; j < ny; j++)
+        {
+            H.z0[i][j] = U[i][j][0];
+        }
+    }
+
+    const int dest = Rank(px, py, pz - 1);
+    SendReceiveMatrix(H.z0, dest);
+}
+
+void Worker::SendReceiveZ1()
+{
+    if (pz == npz - 1)
+    {
+        return;
+    }
+
+    for (Index i = 0; i < nx; i++)
+    {
+        for (Index j = 0; j < ny; j++)
+        {
+            H.z1[i][j] = U[i][j][nz - 1];
+        }
+    }
+
+    const int dest = Rank(px, py, pz + 1);
+    SendReceiveMatrix(H.z1, dest);
+}
+
 void Worker::RunInOrder(
     WorkerMemberFunction f1,
     WorkerMemberFunction f2,
