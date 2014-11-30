@@ -36,7 +36,7 @@ class Worker
     void StatsWriteToFile() const;
     void CalculateEpsilon();
     void CalculateOmega();
-    void CalculateMatrix(
+    void CalculateSection(
         Matrix& next,
         const Matrix& current,
         const Neighborhood& O);

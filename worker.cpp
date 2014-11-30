@@ -315,11 +315,11 @@ void Worker::CalculateUNext()
             O.SetZ1(O3d.z1[i]);
         }
 
-        CalculateMatrix(U_next[i], U[i], O);
+        CalculateSection(U_next[i], U[i], O);
     }
 }
 
-void Worker::CalculateMatrix(
+void Worker::CalculateSection(
     Matrix& next,
     const Matrix& current,
     const Neighborhood& O)
