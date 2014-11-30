@@ -26,9 +26,9 @@ Worker::Worker(const Args& args):
 {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &np);
-    nx = n / px;
-    ny = n / py;
-    nz = n / pz;
+    nx = n / npx;
+    ny = n / npy;
+    nz = n / npz;
 
     if (!args.usage_flag)
     {
