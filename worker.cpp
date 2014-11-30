@@ -148,7 +148,7 @@ void Worker::ArrayWriteToFile() const
                             MPI_Barrier(comm);
                             if (pi == px && pj == py && pk == pz)
                             {
-                                const Vector& buf = U_next[i][j];
+                                Vector buf = U_next[i][j];
                                 MPI_Send(
                                     &buf[0],
                                     buf.size(),
