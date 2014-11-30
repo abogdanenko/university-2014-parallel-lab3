@@ -33,9 +33,13 @@ Worker::Worker(const Args& args):
     ny = n / npy;
     nz = n / npz;
 
-    vector<int> dims = {npx, npy, npz};
+    vector<int> dims(3);
     vector<int> periods(3, 0);
     vector<int> coords(3);
+
+    dims[0] = npx;
+    dims[1] = npy;
+    dims[2] = npz;
 
     MPI_Cart_create(MPI_COMM_WORLD, 3, &dims[0], &periods[0], 1, &comm);
     MPI_Comm_rank(comm, &rank);
