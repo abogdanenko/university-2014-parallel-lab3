@@ -343,6 +343,7 @@ void Worker::SendReceiveX0()
         return;
     }
 
+    H.x0_exists = true;
     H.x0 = U.front();
     const int dest = Rank(px - 1, py, pz);
     SendReceiveMatrix(H.x0, dest);
@@ -355,6 +356,7 @@ void Worker::SendReceiveX1()
         return;
     }
 
+    H.x1_exists = true;
     H.x1 = U.back();
     const int dest = Rank(px + 1, py, pz);
     SendReceiveMatrix(H.x1, dest);
@@ -367,6 +369,7 @@ void Worker::SendReceiveY0()
         return;
     }
 
+    H.y0_exists = true;
     for (Index i = 0; i < nx; i++)
     {
         H.y0[i] = U[i][0];
@@ -383,6 +386,7 @@ void Worker::SendReceiveY1()
         return;
     }
 
+    H.y1_exists = true;
     for (Index i = 0; i < nx; i++)
     {
         H.y1[i] = U[i][ny - 1];
@@ -399,6 +403,7 @@ void Worker::SendReceiveZ0()
         return;
     }
 
+    H.z0_exists = true;
     for (Index i = 0; i < nx; i++)
     {
         for (Index j = 0; j < ny; j++)
@@ -418,6 +423,7 @@ void Worker::SendReceiveZ1()
         return;
     }
 
+    H.z1_exists = true;
     for (Index i = 0; i < nx; i++)
     {
         for (Index j = 0; j < ny; j++)
@@ -449,6 +455,12 @@ void Worker::RunInOrder(
 
 void Worker::SendReceiveHalo()
 {
+    H.x0_exists = false;
+    H.x1_exists = false;
+    H.y0_exists = false;
+    H.y1_exists = false;
+    H.z0_exists = false;
+    H.z1_exists = false;
     RunInOrder(&Worker::SendReceiveX0, &Worker::SendReceiveX1, px % 2);
     RunInOrder(&Worker::SendReceiveY0, &Worker::SendReceiveY1, py % 2);
     RunInOrder(&Worker::SendReceiveZ0, &Worker::SendReceiveZ1, pz % 2);
