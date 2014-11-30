@@ -21,7 +21,7 @@ class Worker
     int py;
     int pz;
     // total number of processors and number of processors in each dimension
-    int world_size;
+    int np;
     int npx;
     int npy;
     int npz;
