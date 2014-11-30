@@ -272,11 +272,11 @@ void Worker::StatsWriteToFile() const
 void Worker::CalculateEpsilon()
 {
     epsilon = 0.0;
-    for (Index i = 0; i < n; i++)
+    for (Index i = 0; i < nx; i++)
     {
-        for (Index j = 0; j < n; j++)
+        for (Index j = 0; j < ny; j++)
         {
-            for (Index k = 0; k < n; k++)
+            for (Index k = 0; k < nz; k++)
             {
                 const double diff = U[i][j][k] - U_next[i][j][k];
                 const double abs_diff = fabs(diff);
