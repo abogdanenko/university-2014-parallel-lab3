@@ -473,8 +473,8 @@ void Worker::CalculateUNext()
             continue;
         }
 
-        const Matrix& x0 = i == 0 ? H.x0 : U_next[i - 1];
-        const Matrix& x1 = i == nx - 1 ? H.x1 : U_next[i + 1];
+        const Matrix& x0 = i == 0      ? H.x0 : U[i - 1];
+        const Matrix& x1 = i == nx - 1 ? H.x1 : U[i + 1];
 
         HaloSection h;
         h.TakeSection(H, i);
