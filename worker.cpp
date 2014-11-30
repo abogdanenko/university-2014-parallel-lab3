@@ -559,7 +559,7 @@ void Worker::Run()
     {
         MPI_Barrier(comm);
         timer.Start();
-        if (pi == px - 1)
+        if (px == npx - 1)
         {
             SetBC();
         }
