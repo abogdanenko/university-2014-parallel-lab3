@@ -557,14 +557,14 @@ void Worker::Run()
     }
     else
     {
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Barrier(comm);
         timer.Start();
         if (pi == px - 1)
         {
             SetBC();
         }
         Loop();
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Barrier(comm);
         timer.Stop();
         ArrayWriteToFile();
         StatsWriteToFile();
