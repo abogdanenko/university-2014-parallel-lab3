@@ -356,7 +356,7 @@ void Worker::SendReceiveX1()
     }
 
     H.x1 = U.back();
-    const int dest = Rank(px - 1, py, pz);
+    const int dest = Rank(px + 1, py, pz);
     SendReceiveMatrix(H.x1, dest);
 }
 
