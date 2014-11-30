@@ -322,7 +322,9 @@ void Worker::CalculateUNext()
 void Worker::CalculateSection(
     Matrix& next,
     const Matrix& current,
-    const Neighborhood& h)
+    const Matrix& mx0,
+    const Matrix& mx1,
+    const HaloSection& h)
 {
     for (Index j = 0; j < ny; j++)
     {
@@ -338,8 +340,8 @@ void Worker::CalculateSection(
                 continue;
             }
 
-            const double x0  = h.x0[j][k];
-            const double x1  = h.x1[j][k];
+            const double x0  = mx0[j][k];
+            const double x1  = mx1[j][k];
             const double y0  = j == 0      ? h.y0[k] : current[j - 1][k];
             const double y1  = j == ny - 1 ? h.y1[k] : current[j + 1][k];
             const double z0  = k == 0      ? h.z0[j] : current[j][k - 1];
