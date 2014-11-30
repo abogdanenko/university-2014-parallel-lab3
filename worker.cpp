@@ -24,11 +24,29 @@ Worker::Worker(const Args& args):
     args(args),
     omega(1.0)
 {
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int rank;
     MPI_Comm_size(MPI_COMM_WORLD, &np);
+
+    factor3(np, npx, npy, npz);
+
     nx = n / npx;
     ny = n / npy;
     nz = n / npz;
+
+    vector<int> dims = {npx, npy, npz};
+    vector<int> periods(3, 0);
+    vector<int> coords(3);
+
+    MPI_Cart_create(MPI_COMM_WORLD, 3, &dims[0], &periods[0], 1, &comm);
+    MPI_Comm_rank(comm, &rank);
+    MPI_Cart_coords(comm, rank, 3, &coords[0]);
+
+    px = coords[0];
+    py = coords[1];
+    pz = coords[2];
+
+    master_rank = Rank(0, 0, 0);
+    is_master = rank == master_rank;
 
     if (!args.usage_flag)
     {
@@ -146,7 +164,7 @@ void Worker::ArrayWriteToFile() const
 
 void Worker::StatsWriteToFile() const
 {
-    if (rank)
+    if (!is_master)
     {
         return;
     }
@@ -156,7 +174,6 @@ void Worker::StatsWriteToFile() const
         (fs.open(args.stats_filename.c_str()), fs);
 
     const int w = string("iterations max: ").length();
-
 
     s
         << left

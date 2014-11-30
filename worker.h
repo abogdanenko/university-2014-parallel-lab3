@@ -16,7 +16,6 @@ class Worker
     Index ny;
     Index nz;
     // coords of this processor
-    int rank;
     int px;
     int py;
     int pz;
@@ -25,6 +24,9 @@ class Worker
     int npx;
     int npy;
     int npz;
+    MPI_Comm comm;
+    bool is_master;
+    int master_rank;
     Args args;
     Timer timer;
     Array3d U;
