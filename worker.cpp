@@ -293,29 +293,9 @@ void Worker::CalculateUNext()
         const Matrix& x0 = i == 0 ? H.x0 : U_next[i - 1];
         const Matrix& x1 = i == nx - 1 ? H.x1 : U_next[i + 1];
 
-        Neighborhood h(x0, x1);
-
-        if (H.y0_exists)
-        {
-            h.SetY0(H.y0[i]);
-        }
-
-        if (H.y1_exists)
-        {
-            h.SetY1(H.y1[i]);
-        }
-
-        if (H.z0_exists)
-        {
-            h.SetZ0(H.z0[i]);
-        }
-
-        if (H.z1_exists)
-        {
-            h.SetZ1(H.z1[i]);
-        }
-
-        CalculateSection(U_next[i], U[i], h);
+        HaloSection h;
+        h.TakeSection(H, i);
+        CalculateSection(U_next[i], U[i], x0, x1, h);
     }
 }
 
