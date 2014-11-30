@@ -277,6 +277,23 @@ void Worker::CalculateOmega()
     }
 }
 
+void Worker::RunInOrder(
+    WorkerMemberFunction f1,
+    WorkerMemberFunction f2,
+    const bool order)
+{
+    if (order)
+    {
+        (this->*f1)();
+        (this->*f2)();
+    }
+    else
+    {
+        (this->*f2)();
+        (this->*f1)();
+    }
+}
+
 void Worker::SendReceiveHalo()
 {
     RunInOrder(&Worker::SendReceiveX0, &Worker::SendReceiveX1, px % 2);

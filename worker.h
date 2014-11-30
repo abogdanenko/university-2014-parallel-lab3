@@ -5,6 +5,9 @@
 #include "typedefs.h"
 #include "timer.h"
 
+class Worker;
+typedef void (Worker::* WorkerMemberFunction)();
+
 class Worker
 {
     // mesh size
@@ -39,6 +42,10 @@ class Worker
     void CalculateEpsilon();
     void CalculateOmega();
     void SendReceiveHalo();
+    void RunInOrder(
+        WorkerMemberFunction f1,
+        WorkerMemberFunction f2,
+        const bool order);
     void CalculateSection(
         Matrix& next,
         const Matrix& current,
