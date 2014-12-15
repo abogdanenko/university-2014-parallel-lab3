@@ -1,6 +1,7 @@
 EXECUTABLE=lab3
 CC=mpiCC
-CXXFLAGS=-std=c++98 -Wall -Wextra -pedantic -Wno-long-long -Werror
+CXXFLAGS=-std=c++98 -fopenmp -Wall -Wextra -pedantic -Wno-long-long -Werror
+LDFLAGS=-fopenmp
 RELEASEDIR=release
 HFILES=$(wildcard *.h)
 CPPFILES=$(wildcard *.cpp)
@@ -19,7 +20,7 @@ create_dir_release:
 	test -d $(RELEASEDIR) || mkdir $(RELEASEDIR)
 
 $(RELEASEDIR)/$(EXECUTABLE): $(RELEASEOFILES)
-	$(CC) -o $@ $(RELEASEDIR)/*.o
+	$(CC) -o $@ $(LDFLAGS) $(RELEASEDIR)/*.o
 
 $(RELEASEDIR)/%.o: %.cpp $(HFILES)
 	$(CC) -c -o $@ $(CXXFLAGS) $<
