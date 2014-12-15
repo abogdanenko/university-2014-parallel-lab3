@@ -505,6 +505,7 @@ void Worker::CalculateUNext()
         CalculateOmega();
     }
 
+    #pragma omp parallel for
     for (Index i = 0; i < nx; i++)
     {
         if (i == 0 && !H.x0_exists)
