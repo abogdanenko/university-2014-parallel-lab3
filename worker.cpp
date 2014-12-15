@@ -290,19 +290,33 @@ void Worker::StatsWriteToFile() const
 void Worker::CalculateEpsilon()
 {
     epsilon = 0.0;
-    for (Index i = 0; i < nx; i++)
+
+    /* workaround for old compiler that doesn't support
+    #pragma omp for reduction(max:eps) */
+
+    #pragma omp parallel
     {
-        for (Index j = 0; j < ny; j++)
+        double eps = 0.0;
+        for (Index i = 0; i < nx; i++)
         {
-            for (Index k = 0; k < nz; k++)
+            for (Index j = 0; j < ny; j++)
             {
-                const double diff = U[i][j][k] - U_next[i][j][k];
-                const double abs_diff = fabs(diff);
-                if (abs_diff > epsilon)
+                for (Index k = 0; k < nz; k++)
                 {
-                    epsilon = abs_diff;
+                    const double diff = U[i][j][k] - U_next[i][j][k];
+                    const double abs_diff = fabs(diff);
+                    if (abs_diff > eps)
+                    {
+                        eps = abs_diff;
+                    }
                 }
             }
+        }
+
+        #pragma omp critical
+        if (eps > epsilon)
+        {
+            epsilon = eps;
         }
     }
     MPI_Allreduce(MPI_IN_PLACE, &epsilon, 1, MPI_DOUBLE, MPI_MAX, comm);
