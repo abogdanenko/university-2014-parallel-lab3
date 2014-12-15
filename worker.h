@@ -28,6 +28,8 @@ class Worker
     int npx;
     int npy;
     int npz;
+    // number of threads
+    int nt;
     MPI_Comm comm;
     bool is_master;
     int master_rank;

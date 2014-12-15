@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <omp.h>
 
 #include "worker.h"
 #include "parser.h"
@@ -24,6 +25,12 @@ Worker::Worker(const Args& args):
     args(args),
     omega(1.0)
 {
+    #pragma omp parallel
+    {
+        #pragma omp single
+        nt = omp_get_num_threads();
+    }
+
     int rank;
     MPI_Comm_size(MPI_COMM_WORLD, &np);
 
@@ -230,6 +237,12 @@ void Worker::StatsWriteToFile() const
         << npy
         << "x"
         << npz
+        << endl;
+    s
+        << left
+        << setw(w)
+        << "threads:"
+        << nt
         << endl;
     s
         << left
