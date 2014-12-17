@@ -297,6 +297,7 @@ void Worker::CalculateEpsilon()
     #pragma omp parallel
     {
         double eps = 0.0;
+        #pragma omp for
         for (Index i = 0; i < nx; i++)
         {
             for (Index j = 0; j < ny; j++)
